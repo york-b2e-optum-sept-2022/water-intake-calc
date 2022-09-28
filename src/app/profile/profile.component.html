@@ -1,24 +1,28 @@
 <div class="m-3">
   <div class="input-group mb-3">
     <span class="input-group-text">Name</span>
-    <input type="text" class="form-control">
+    <input [(ngModel)]="name" type="text" class="form-control">
   </div>
 
   <div class="input-group mb-3">
     <span class="input-group-text">Weight (lbs)</span>
-    <input type="number" class="form-control">
+    <input [(ngModel)]="weight_lbs" type="number" class="form-control">
   </div>
 
   <div ngbDropdown class="d-inline-block">
-    <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Activity Level</button>
+    <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+      <!-- This is called a ternary operator is functions like a if statement -->
+      <!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator -->
+      {{activityLevel === undefined ? 'Activity Level' : activityLevel}}
+    </button>
     <div ngbDropdownMenu>
-      <button ngbDropdownItem>Low</button>
-      <button ngbDropdownItem>Average</button>
-      <button ngbDropdownItem>High</button>
+      <button (click)="onActivityLevelClick('LOW')" ngbDropdownItem>Low</button>
+      <button (click)="onActivityLevelClick('AVERAGE')" ngbDropdownItem>Average</button>
+      <button (click)="onActivityLevelClick('HIGH')" ngbDropdownItem>High</button>
     </div>
   </div>
 
   <div class="mt-3">
-    <button class="btn btn-primary">Submit</button>
+    <button (click)="onSubmit()" class="btn btn-primary">Submit</button>
   </div>
 </div>

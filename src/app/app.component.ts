@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {DataService} from "./data.service";
 
 @Component({
@@ -8,9 +8,11 @@ import {DataService} from "./data.service";
 })
 export class AppComponent {
   title = 'water-calc';
-  foo: string;
+  isProfileCreated: boolean = false;
 
   constructor(private dataService: DataService) {
-    this.foo = this.dataService.foo;
+    this.dataService.$profile.subscribe((profile) => {
+      this.isProfileCreated = true;
+    });
   }
 }

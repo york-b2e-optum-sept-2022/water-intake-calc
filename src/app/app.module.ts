@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { DayComponent } from './day/day.component';
 import { WeekComponent } from './week/week.component';
 import { QtySelectorComponent } from './qty-selector/qty-selector.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { QtySelectorComponent } from './qty-selector/qty-selector.component';
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
