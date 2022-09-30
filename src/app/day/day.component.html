@@ -1,3 +1,15 @@
-<h5>{{day.name}}</h5>
-<div>{{day.current_fl}}</div>
-<div>{{day.goal_fl}}</div>
+<div class="card m-3" style="width: 10rem;">
+
+  <div class="card-header">
+    <h5>{{day.name | titlecase}}</h5>
+  </div>
+
+  <div class="card-body">
+    <span>{{day.current_fl}}</span> / <span>{{day.goal_fl}}</span> fl
+  </div>
+
+  <div class="d-flex justify-content-around card-footer">
+    <button (click)="decrease()" class="btn btn-danger btn-sm">-</button>
+    <button (click)="increase()" class="btn btn-success btn-sm">+</button>
+  </div>
+</div>

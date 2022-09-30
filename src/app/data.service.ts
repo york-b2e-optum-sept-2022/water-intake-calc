@@ -11,11 +11,13 @@ import {DAY_NAME} from "./enums/DAY_NAME";
 export class DataService {
 
 
-  profile: IProfile | null = null;
+  private profile: IProfile | null = null;
   $profile = new Subject<IProfile>();
 
   private weekDayCount = 7;
-  week: IDay[] = []
+  private week: IDay[] = []
+
+  private bottleSize_fl: number = 16;
 
   constructor() {
   }
@@ -51,6 +53,19 @@ export class DataService {
     this.$profile.next(this.profile);
   }
 
+  increaseDayValue(day: IDay) {
+    day.current_fl += this.bottleSize_fl;
+  }
+
+  decreaseDayValue(day: IDay) {
+    day.current_fl -= this.bottleSize_fl;
+
+    // if current_fl is less than 0 then just set it back to 0
+    if (day.current_fl < 0) {
+      day.current_fl = 0;
+    }
+  }
+
   calculateDailyGoal(profile: IProfile): number {
     let dayGoal = 0;
     switch (profile.activityLevel) {
@@ -69,7 +84,6 @@ export class DataService {
 
     return dayGoal;
   }
-
 
   numberToDayName(num: number): DAY_NAME {
     let selectedDay: DAY_NAME;
@@ -100,6 +114,18 @@ export class DataService {
     }
 
     return selectedDay;
+  }
+
+  getBottleSize() {
+    return this.bottleSize_fl;
+  }
+
+  setBottleSize(num: number) {
+    this.bottleSize_fl = num;
+  }
+
+  getWeek() {
+    return this.week;
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {DataService} from "../data.service";
 import {IDay} from "../interfaces/IDay";
 
@@ -10,8 +10,14 @@ import {IDay} from "../interfaces/IDay";
 export class WeekComponent {
 
   week: IDay[];
+  bottleSize: number;
 
   constructor(private dataService: DataService) {
-    this.week = this.dataService.week;
+    this.week = this.dataService.getWeek();
+    this.bottleSize = this.dataService.getBottleSize();
+  }
+
+  onBottleSizeChange(newValue: number) {
+    this.dataService.setBottleSize(newValue);
   }
 }
