@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor(private dataService: DataService) {
     this.dataService.$profile.subscribe((profile) => {
-      this.isProfileCreated = true;
+        this.isProfileCreated = true;
     });
   }
 }

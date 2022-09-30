@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DataService} from "../data.service";
+import {IDay} from "../interfaces/IDay";
 
 @Component({
   selector: 'app-week',
   templateUrl: './week.component.html',
   styleUrls: ['./week.component.css']
 })
-export class WeekComponent implements OnInit {
+export class WeekComponent {
 
-  constructor() { }
+  week: IDay[];
 
-  ngOnInit(): void {
+  constructor(private dataService: DataService) {
+    this.week = this.dataService.week;
   }
-
 }
