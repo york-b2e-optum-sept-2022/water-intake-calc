@@ -79,7 +79,7 @@ export class DataService {
         dayGoal = profile.weight_lbs;
         break;
       default:
-        throw new Error('unknown activity level')
+        throw new Error('unknown ACTIVITY_LEVEL');
     }
 
     return dayGoal;
@@ -126,6 +126,14 @@ export class DataService {
 
   getWeek() {
     return this.week;
+  }
+
+  getProfile() {
+    if (this.profile === null) {
+      throw new Error('no profile is set')
+    }
+
+    return this.profile;
   }
 
 }
