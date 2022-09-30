@@ -14,9 +14,13 @@ export class DataService {
   private profile: IProfile | null = null;
   $profile = new Subject<IProfile>();
 
-  private weekDayCount = 7;
-  private week: IDay[] = []
+  private currentProgress_fl: number = 0;
+  $currentProgress_fl = new Subject<number>();
 
+  private weekDayCount = 7;
+  private weeklyGoal_fl: number = 0;
+
+  private week: IDay[] = []
   private bottleSize_fl: number = 16;
 
   constructor() {
@@ -43,6 +47,7 @@ export class DataService {
           current_fl: 0
         }
         this.week.push(day);
+        this.weeklyGoal_fl += day.goal_fl;
       } catch (error) {
         console.error(error);
         return;
@@ -55,15 +60,20 @@ export class DataService {
 
   increaseDayValue(day: IDay) {
     day.current_fl += this.bottleSize_fl;
+
+    this.currentProgress_fl = this.calculateWeeklyCurrentProgress(this.week);
+    this.$currentProgress_fl.next(this.currentProgress_fl);
   }
 
   decreaseDayValue(day: IDay) {
     day.current_fl -= this.bottleSize_fl;
-
     // if current_fl is less than 0 then just set it back to 0
     if (day.current_fl < 0) {
       day.current_fl = 0;
     }
+
+    this.currentProgress_fl = this.calculateWeeklyCurrentProgress(this.week);
+    this.$currentProgress_fl.next(this.currentProgress_fl);
   }
 
   calculateDailyGoal(profile: IProfile): number {
@@ -83,6 +93,15 @@ export class DataService {
     }
 
     return dayGoal;
+  }
+
+  calculateWeeklyCurrentProgress(week: IDay[]): number {
+    let total = 0;
+    for (const day of week) {
+      total += day.current_fl
+    }
+
+    return total;
   }
 
   numberToDayName(num: number): DAY_NAME {
@@ -136,4 +155,11 @@ export class DataService {
     return this.profile;
   }
 
+  getWeeklyGoal() {
+    return this.weeklyGoal_fl;
+  }
+
+  getCurrentProgress() {
+    return this.currentProgress_fl;
+  }
 }
